@@ -17,27 +17,14 @@ public class LogOMatic {
         try {
             loggingClass = Class.forName(Logger.class.getPackage().getName() + ".DefaultAndroidLogger");
 
-            for (Constructor cons : loggingClass.getDeclaredConstructors()) {
-                for (TypeVariable tv : cons.getTypeParameters()) {
-                     if (tv.getBounds().length == 1 && tv.getBounds()[0].equals(Class.class)){
-                        return (Logger) cons.newInstance(clazz);
-                    }
-                }
-            }
-
+            Constructor constructor = loggingClass.getDeclaredConstructors()[0];
+            return (Logger) constructor.newInstance(clazz);
 
         } catch (ClassNotFoundException e) {
             return new DefaultLogger(clazz);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
-        return null;
     }
 
 }

@@ -6,12 +6,13 @@ repositories {
 }
 
 sourceCompatibility = 1.6
-version = '1.0.0'
+version = '1.0.1'
 
 jar {
     manifest {
         attributes 'Implementation-Title': 'log-o-matic', 'Implementation-Version': version
     }
+  from sourceSets.main.allSource
 }
 
 dependencies {
